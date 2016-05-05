@@ -9,3 +9,6 @@ RewriteCond $1 !^(index\.php|robots\.txt|favicon\.ico)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+
+order deny,allow
+allow from all
