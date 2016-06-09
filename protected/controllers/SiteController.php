@@ -58,6 +58,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		Yii::app()->theme  = "baseAdmin3.0";
 		$diallableFetcher = new DiallableFetcherUrl();
 		$liveAVal = $diallableFetcher->getByCampaignId("LIVEA");
 		$livePbaValue = $diallableFetcher->getByCampaignId("PBA");
