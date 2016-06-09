@@ -58,17 +58,20 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->theme = "baseAdmin3.0";
 		$diallableFetcher = new DiallableFetcherUrl();
 		$liveAVal = $diallableFetcher->getByCampaignId("LIVEA");
 		$livePbaValue = $diallableFetcher->getByCampaignId("PBA");
         $revDValue = LiveRevD::getValue();
         $revPValue = LiveRevP::getValue();
+		$pba_cc001 = LiveRevD::getValue("cc001");
+		$pba_cc002 = LiveRevD::getValue("cc002");
         
 
         if (Yii::app()->request->isAjaxRequest) {
         	$data['livePbaValue'] = $livePbaValue;
         	$data['pba'] = $revDValue;
+        	$data['pba_cc001'] = $pba_cc001;
+        	$data['pba_cc002'] = $pba_cc002;
         	$data['revPVal'] = $revPValue;
         	$data['liveAVal'] = $liveAVal;
         	$data['piTarget'] = number_format(   ( $revPValue / 1500 * 100 ), 0) .' %';
@@ -79,6 +82,8 @@ class SiteController extends Controller
 		$this->render('newui',array(
                 'livePbaValue'=>$livePbaValue,
                 'pba'=>$revDValue,
+		    	'pba_cc001' => $pba_cc001,
+		    	'pba_cc002' => $pba_cc002,
                 'revPVal'=>$revPValue,
                 "liveAVal"=>$liveAVal,
                 'piTarget'=>number_format(  ( $revPValue / 1500 * 100 )   , 0) ,
