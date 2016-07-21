@@ -13,7 +13,7 @@ if ($pba >= 0  && $pba <= 23.99) {
 
   <div class="widget ">
     <div class="widget-header" style='border-radius: 55px 55px 0px 0px;'>
-      PBA
+      PBA Day
     </div> <!-- /widget-header -->
     <div class="widget-content" style="color: white;background: <?php echo $backGroundColor ?>;">
       <div class='big-label'>
@@ -25,7 +25,7 @@ if ($pba >= 0  && $pba <= 23.99) {
           <?php echo $pba_cc001?>
         </b>
         <hr>
-        <div style="font-size: 20px;text-align: center !important;display: block;">CC002</div>
+        <div style="font-size: 20px;text-align: center !important;display: block;">HOT Keys</div>
         <b id="pba_cc002" style="font-size:68%">
           <?php echo $pba_cc002?>
         </b>

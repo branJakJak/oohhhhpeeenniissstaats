@@ -30,27 +30,8 @@ class SiteController extends Controller
 			'postOnly + delete',
 		);
 	}
-	/**
-	 * Specifies the access control rules.
-	 * This method is used by the 'accessControl' filter.
-	 * @return array access control rules
-	 */
-	public function accessRules()
-	{
-		return array(
-			array('allow',
-				'actions'=>array('error','login','logout'),
-				'users'=>array('*'),
-			),
-			array('allow',
-				'actions'=>array('index'),
-				'users'=>array('@'),
-			),
-			array('deny',
-				'users'=>array('*'),
-			),
-		);
-	}
+
+
 
 	/**
 	 * This is the default 'index' action that is invoked
@@ -58,15 +39,23 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->theme  = "baseAdmin3.0";
+		Yii::import('application.components.PbaRetriever');
 		$diallableFetcher = new DiallableFetcherUrl();
 		$liveAVal = $diallableFetcher->getByCampaignId("LIVEA");
-		$livePbaValue = $diallableFetcher->getByCampaignId("PBA");
+		$livePbaValueObj = new PbaRetriever();
+		$livePbaValue = $livePbaValueObj->getData();
         $revDValue = LiveRevD::getValue();
         $revPValue = LiveRevP::getValue();
+
 		$pba_cc001 = LiveRevD::getValue("cc001");
-		$pba_cc002 = LiveRevD::getValue("cc002");
+		// $pba_cc002 = LiveRevD::getValue("cc002");
+		/*HOTKEY Day*/
+		$pba_cc002 = Yii::app()->weekdayRetriever->getValue();
         
+        $piTarget = number_format(   ( $revPValue / 1500 * 100 ), 0) .' %';
+
+        // $pbaTarget = sprintf('%02.2f', ( $livePbaValue / 182 * 100)).' %';
+        $pbaTarget = Yii::app()->hotkeyWeekRetriever->getValue();
 
         if (Yii::app()->request->isAjaxRequest) {
         	$data['livePbaValue'] = $livePbaValue;
@@ -75,8 +64,8 @@ class SiteController extends Controller
         	$data['pba_cc002'] = $pba_cc002;
         	$data['revPVal'] = $revPValue;
         	$data['liveAVal'] = $liveAVal;
-        	$data['piTarget'] = number_format(   ( $revPValue / 1500 * 100 ), 0) .' %';
-        	$data['pbaTarget'] = number_format(  ($revDValue / 40 * 100)  ,0).' %';
+        	$data['piTarget'] = $piTarget;
+        	$data['pbaTarget'] = $pbaTarget;
             echo json_encode($data);
             Yii::app()->end();
         }
@@ -87,8 +76,8 @@ class SiteController extends Controller
 		    	'pba_cc002' => $pba_cc002,
                 'revPVal'=>$revPValue,
                 "liveAVal"=>$liveAVal,
-                'piTarget'=>number_format(  ( $revPValue / 1500 * 100 )   , 0) ,
-                'pbaTarget'=>number_format( ( $revDValue / 40 * 100 )  ,0),
+                'piTarget'=>$piTarget,
+                'pbaTarget'=>$pbaTarget
 			));
 	}
 	public function actionNewui()

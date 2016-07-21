@@ -43,6 +43,10 @@ Yii::app()->clientScript->registerScript('refreshContents', $refreshContents, CC
             
             /*PBA*/
             jQuery("#liveRevDvalue").html(data.pba);
+            /*PBA - pba_cc001*/
+            jQuery("#pba_cc001").html(data.pba_cc001);
+            /*PBA - pba_cc002*/
+            jQuery("#pba_cc002").html(data.pba_cc002);
 
             /* PI Target*/
             var tempPiTargetContainer = parseFloat(data.piTarget);
@@ -254,12 +258,12 @@ Yii::app()->clientScript->registerScript('refreshContents', $refreshContents, CC
       <div class="col-md-4 col-lg-4">
         <div class="widget ">
           <div class="widget-header" style='border-radius: 55px 55px 0px 0px;'>
-            PBA % Target
+            HOTKEY WEEK
           </div> <!-- /widget-header -->
           <div class="widget-content" style="background-color: red;color:white !important">
             <div class='big-label'>
               <b id="pbaTarget" style="font-size:50%">
-                <?php echo $pbaTarget ?> %
+                <?php echo $pbaTarget ?>
               </b>
             </div>
           </div> <!-- /widget-content -->
