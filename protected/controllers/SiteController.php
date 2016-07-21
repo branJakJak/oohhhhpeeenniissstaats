@@ -30,6 +30,22 @@ class SiteController extends Controller
 			'postOnly + delete',
 		);
 	}
+    public function accessRules()
+    {
+        return array(
+                array('allow',
+                        'actions'=>array('error','login','logout'),
+                        'users'=>array('*'),
+                ),
+                array('allow',
+                        'actions'=>array('index'),
+                        'users'=>array('@'),
+                ),
+                array('deny',
+                        'users'=>array('*'),
+                ),
+        );
+    }
 
 
 
